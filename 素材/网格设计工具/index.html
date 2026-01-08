@@ -1,0 +1,1128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网格布局设计工具 v2.0</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#60A5FA',
+                        cta: '#F97316',
+                        surface: '#F8FAFC',
+                        text: '#1E293B',
+                        border: '#E2E8F0'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif; }
+        
+        /* 网格单元格 */
+        .grid-cell {
+            border: 1px solid #E2E8F0;
+            cursor: pointer;
+            transition: all 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            min-height: 20px;
+            user-select: none;
+        }
+        .grid-cell:hover { 
+            border-color: #3B82F6;
+        }
+        .grid-cell.selecting {
+            background: rgba(59, 130, 246, 0.2) !important;
+            border-color: #3B82F6;
+        }
+        .grid-cell.selected {
+            box-shadow: inset 0 0 0 2px #F97316;
+        }
+        
+        /* 单元格内文字 */
+        .grid-cell .cell-text {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 2px;
+            font-size: inherit;
+            color: inherit;
+            pointer-events: none;
+        }
+        .grid-cell .cell-text:focus {
+            outline: none;
+            cursor: text;
+            pointer-events: auto;
+        }
+        .grid-cell .cell-text.editing {
+            pointer-events: auto;
+        }
+        
+        /* 区域类型标签 */
+        .cell-label {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            font-size: 9px;
+            padding: 1px 4px;
+            border-radius: 2px;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            pointer-events: none;
+        }
+        
+        /* 侧边栏 */
+        .sidebar { 
+            width: 280px; 
+            min-width: 280px; 
+            background: white;
+            border-color: #E2E8F0;
+            overflow-y: auto;
+        }
+        
+        /* 画布容器 */
+        .canvas-container { 
+            flex: 1; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            background: #E5E7EB;
+            padding: 24px;
+            overflow: auto;
+            position: relative;
+        }
+        
+        /* 画布 */
+        .canvas-wrapper {
+            background: white;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* 选区框 */
+        .selection-box {
+            position: absolute;
+            border: 2px dashed #3B82F6;
+            background: rgba(59, 130, 246, 0.1);
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        /* 区域类型按钮 */
+        .region-btn {
+            padding: 10px 12px;
+            border: 2px solid #E2E8F0;
+            border-radius: 8px;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+        .region-btn:hover {
+            border-color: #3B82F6;
+            background: #F8FAFC;
+        }
+        .region-btn.active {
+            border-color: #3B82F6;
+            background: #EFF6FF;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+        .region-btn .color-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+        
+        /* 模板按钮 */
+        .template-btn {
+            padding: 8px 10px;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.15s;
+            text-align: left;
+            width: 100%;
+        }
+        .template-btn:hover {
+            border-color: #3B82F6;
+            background: #EFF6FF;
+        }
+        .template-btn.active {
+            border-color: #3B82F6;
+            background: #DBEAFE;
+        }
+        .template-btn .size {
+            font-size: 10px;
+            color: #6B7280;
+        }
+        
+        /* 分类标签 */
+        .category-tab {
+            padding: 5px 10px;
+            font-size: 11px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            white-space: nowrap;
+            background: #F3F4F6;
+        }
+        .category-tab:hover { background: #E5E7EB; }
+        .category-tab.active {
+            background: #3B82F6;
+            color: white;
+        }
+        
+        /* 按钮 */
+        .btn {
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            font-size: 13px;
+        }
+        .btn-primary { background: #3B82F6; color: white; border: none; }
+        .btn-primary:hover { background: #2563EB; }
+        .btn-secondary { background: white; color: #374151; border: 1px solid #D1D5DB; }
+        .btn-secondary:hover { background: #F9FAFB; }
+        .btn-cta { background: #F97316; color: white; border: none; }
+        .btn-cta:hover { background: #EA580C; }
+        .btn-danger { background: #EF4444; color: white; border: none; }
+        .btn-danger:hover { background: #DC2626; }
+        
+        /* 分区标题 */
+        .section-title {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+        
+        /* 输入框 */
+        .input-field {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #E2E8F0;
+            border-radius: 6px;
+            font-size: 13px;
+            transition: border-color 0.15s;
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #3B82F6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        
+        /* 滚动条 */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #F1F1F1; }
+        ::-webkit-scrollbar-thumb { background: #C1C1C1; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #A1A1A1; }
+        
+        /* 工具提示 */
+        .tooltip {
+            position: relative;
+        }
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 4px 8px;
+            background: #1F2937;
+            color: white;
+            font-size: 11px;
+            border-radius: 4px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.15s;
+        }
+        .tooltip:hover::after { opacity: 1; }
+    </style>
+</head>
+<body class="h-screen flex bg-gray-100 overflow-hidden">
+
+    <!-- ========== 左侧栏 - 网格控制 ========== -->
+    <aside class="sidebar flex flex-col h-full border-r">
+        <!-- 标题 -->
+        <div class="p-4 border-b border-border">
+            <h1 class="text-base font-bold text-text flex items-center gap-2">
+                <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
+                </svg>
+                网格布局设计
+            </h1>
+            <p class="text-xs text-gray-500 mt-1">语义化布局工具 v2.0</p>
+        </div>
+        
+        <!-- 网格尺寸 -->
+        <div class="p-4 border-b border-border">
+            <div class="section-title">画布尺寸</div>
+            <div class="grid grid-cols-2 gap-2 mb-3">
+                <div>
+                    <label class="text-xs text-gray-500 mb-1 block">宽度 (px)</label>
+                    <input type="number" id="canvasWidth" value="1920" min="100" max="3840" class="input-field">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500 mb-1 block">高度 (px)</label>
+                    <input type="number" id="canvasHeight" value="1080" min="100" max="2160" class="input-field">
+                </div>
+            </div>
+            <div class="section-title mt-4">网格设置</div>
+            <div class="grid grid-cols-2 gap-2 mb-3">
+                <div>
+                    <label class="text-xs text-gray-500 mb-1 block">行数</label>
+                    <input type="number" id="rowCount" value="10" min="1" max="50" class="input-field">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-500 mb-1 block">列数</label>
+                    <input type="number" id="colCount" value="12" min="1" max="50" class="input-field">
+                </div>
+            </div>
+            <button id="applyGridBtn" class="btn btn-primary w-full">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                应用设置
+            </button>
+        </div>
+        
+        <!-- 画板模板 -->
+        <div class="flex-1 overflow-y-auto p-4">
+            <div class="section-title">画板模板</div>
+            
+            <!-- 分类标签 -->
+            <div class="flex flex-wrap gap-1 mb-3">
+                <span class="category-tab active" data-category="all">全部</span>
+                <span class="category-tab" data-category="web">网页</span>
+                <span class="category-tab" data-category="mobile">手机</span>
+                <span class="category-tab" data-category="tablet">平板</span>
+                <span class="category-tab" data-category="desktop">软件</span>
+                <span class="category-tab" data-category="component">组件</span>
+                <span class="category-tab" data-category="social">社交</span>
+            </div>
+            
+            <!-- 模板列表 -->
+            <div id="templateList" class="space-y-1">
+                <!-- 由 JS 生成 -->
+            </div>
+        </div>
+        
+        <!-- 选区工具 -->
+        <div class="p-4 border-t border-border">
+            <div class="section-title">选区工具</div>
+            <div class="flex gap-2">
+                <button id="selectModeBtn" class="btn btn-secondary flex-1 text-xs active" data-mode="single">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"/>
+                    </svg>
+                    单格
+                </button>
+                <button id="rectModeBtn" class="btn btn-secondary flex-1 text-xs" data-mode="rect">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/>
+                    </svg>
+                    框选
+                </button>
+            </div>
+        </div>
+        
+        <!-- 清空 -->
+        <div class="p-4 border-t border-border">
+            <button id="clearBtn" class="btn btn-danger w-full">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                </svg>
+                清空画布
+            </button>
+        </div>
+    </aside>
+
+    <!-- ========== 中间画布 ========== -->
+    <main class="canvas-container" id="canvasContainer">
+        <div class="canvas-wrapper" id="canvasWrapper">
+            <div id="gridCanvas"></div>
+        </div>
+        <!-- 选区框 -->
+        <div id="selectionBox" class="selection-box" style="display: none;"></div>
+    </main>
+    
+    <!-- ========== 右侧栏 - 区域类型 + 导出 ========== -->
+    <aside class="sidebar flex flex-col h-full border-l">
+        <!-- 区域类型 -->
+        <div class="flex-1 overflow-y-auto p-4">
+            <div class="section-title">区域类型（先选类型，再点格子）</div>
+            <div id="regionList" class="space-y-2">
+                <!-- 由 JS 生成 -->
+            </div>
+            
+            <!-- 橡皮擦 -->
+            <div class="mt-4 pt-4 border-t border-border">
+                <button id="eraserBtn" class="region-btn" data-region="eraser">
+                    <div class="color-dot bg-white border border-gray-300 flex items-center justify-center">
+                        <svg class="w-3 h-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="font-medium text-sm">橡皮擦</div>
+                        <div class="text-xs text-gray-500">清除区域</div>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 当前选中信息 -->
+        <div class="p-4 border-t border-border bg-gray-50">
+            <div class="section-title">当前状态</div>
+            <div class="text-sm">
+                <div class="flex justify-between mb-1">
+                    <span class="text-gray-500">画布:</span>
+                    <span id="infoCanvas" class="font-medium">1920 × 1080</span>
+                </div>
+                <div class="flex justify-between mb-1">
+                    <span class="text-gray-500">网格:</span>
+                    <span id="infoGrid" class="font-medium">10 × 12</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-gray-500">选中类型:</span>
+                    <span id="infoRegion" class="font-medium text-primary">导航栏</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 导出 -->
+        <div class="p-4 border-t border-border space-y-2">
+            <div class="section-title">导出</div>
+            
+            <button id="exportImageBtn" class="btn btn-primary w-full">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                导出图片
+            </button>
+            
+            <button id="exportCodeBtn" class="btn btn-cta w-full">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                </svg>
+                导出代码结构
+            </button>
+            
+            <button id="saveBtn" class="btn btn-secondary w-full">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
+                </svg>
+                保存
+            </button>
+        </div>
+    </aside>
+
+    <!-- ========== 代码导出弹窗 ========== -->
+    <div id="codeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-3xl max-h-[85vh] overflow-hidden m-4">
+            <div class="p-4 border-b border-border flex justify-between items-center">
+                <h3 class="font-bold text-lg">布局代码结构</h3>
+                <button id="closeModalBtn" class="p-2 hover:bg-gray-100 rounded-lg cursor-pointer">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-4 overflow-y-auto max-h-[65vh]">
+                <pre id="codeOutput" class="bg-gray-900 text-green-400 p-4 rounded-lg text-sm overflow-x-auto whitespace-pre-wrap font-mono"></pre>
+            </div>
+            <div class="p-4 border-t border-border flex gap-2">
+                <button id="copyCodeBtn" class="btn btn-primary flex-1">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    复制代码
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 配置 ====================
+        
+        // 区域类型定义（语义化）
+        const REGION_TYPES = [
+            { id: 'nav', name: '导航栏', color: '#3B82F6', desc: '顶部/侧边导航', tag: 'nav' },
+            { id: 'main', name: '主内容区', color: '#FFFFFF', desc: '页面核心内容', tag: 'main', border: true },
+            { id: 'aside', name: '侧边栏', color: '#F3F4F6', desc: '辅助信息区', tag: 'aside' },
+            { id: 'footer', name: '页脚', color: '#374151', desc: '底部信息', tag: 'footer', textLight: true },
+            { id: 'header', name: '头部区', color: '#1E40AF', desc: '页面头部', tag: 'header', textLight: true },
+            { id: 'highlight', name: '强调区', color: '#F97316', desc: 'CTA/重点区域', tag: 'highlight', textLight: true },
+            { id: 'card', name: '卡片区', color: '#E5E7EB', desc: '卡片容器', tag: 'card' },
+            { id: 'form', name: '表单区', color: '#DBEAFE', desc: '输入表单', tag: 'form' },
+            { id: 'media', name: '图片/媒体', color: '#FEF3C7', desc: '图片视频区', tag: 'media' },
+            { id: 'list', name: '列表区', color: '#ECFDF5', desc: '列表内容', tag: 'list' },
+            { id: 'banner', name: '横幅区', color: '#8B5CF6', desc: '广告/横幅', tag: 'banner', textLight: true },
+            { id: 'search', name: '搜索区', color: '#06B6D4', desc: '搜索框区域', tag: 'search', textLight: true },
+        ];
+        
+        // 画板模板
+        const TEMPLATES = [
+            // 网页
+            { name: '桌面网页', width: 1920, height: 1080, category: 'web', rows: 10, cols: 12 },
+            { name: '笔记本网页', width: 1366, height: 768, category: 'web', rows: 8, cols: 12 },
+            { name: '平板横屏网页', width: 1024, height: 768, category: 'web', rows: 8, cols: 10 },
+            // 手机
+            { name: 'iPhone 15 Pro', width: 393, height: 852, category: 'mobile', rows: 16, cols: 6 },
+            { name: 'iPhone SE', width: 375, height: 667, category: 'mobile', rows: 14, cols: 6 },
+            { name: '安卓标准', width: 360, height: 800, category: 'mobile', rows: 16, cols: 6 },
+            { name: '安卓大屏', width: 412, height: 915, category: 'mobile', rows: 18, cols: 6 },
+            // 平板
+            { name: 'iPad Pro 12.9"', width: 1024, height: 1366, category: 'tablet', rows: 12, cols: 8 },
+            { name: 'iPad Mini', width: 768, height: 1024, category: 'tablet', rows: 10, cols: 8 },
+            { name: 'iPad 横屏', width: 1024, height: 768, category: 'tablet', rows: 8, cols: 10 },
+            // 桌面软件
+            { name: 'Windows 应用', width: 1280, height: 720, category: 'desktop', rows: 8, cols: 12 },
+            { name: 'Mac 应用', width: 1440, height: 900, category: 'desktop', rows: 9, cols: 12 },
+            { name: '对话框/弹窗', width: 480, height: 320, category: 'desktop', rows: 6, cols: 8 },
+            { name: '设置面板', width: 600, height: 500, category: 'desktop', rows: 8, cols: 8 },
+            // 组件
+            { name: '导航栏', width: 1920, height: 64, category: 'component', rows: 1, cols: 12 },
+            { name: '侧边栏', width: 280, height: 800, category: 'component', rows: 16, cols: 1 },
+            { name: '卡片', width: 320, height: 400, category: 'component', rows: 8, cols: 4 },
+            { name: '模态框', width: 560, height: 400, category: 'component', rows: 8, cols: 8 },
+            { name: '表单', width: 400, height: 600, category: 'component', rows: 12, cols: 4 },
+            { name: '页脚', width: 1920, height: 200, category: 'component', rows: 4, cols: 12 },
+            // 社交媒体
+            { name: '微信公众号封面', width: 900, height: 383, category: 'social', rows: 4, cols: 10 },
+            { name: '小红书封面', width: 1080, height: 1440, category: 'social', rows: 12, cols: 8 },
+            { name: '抖音封面', width: 1080, height: 1920, category: 'social', rows: 16, cols: 6 },
+            { name: '微博配图', width: 1080, height: 1080, category: 'social', rows: 10, cols: 10 },
+            { name: 'B站封面', width: 1146, height: 717, category: 'social', rows: 6, cols: 10 },
+            // 自定义
+            { name: '🎨 自定义尺寸', width: 0, height: 0, category: 'all', rows: 10, cols: 10, custom: true },
+        ];
+        
+        // ==================== 状态 ====================
+        let state = {
+            canvasWidth: 1920,
+            canvasHeight: 1080,
+            rows: 10,
+            cols: 12,
+            cells: [], // { regionId, text }
+            currentRegion: 'nav',
+            selectMode: 'single', // single, rect
+            isSelecting: false,
+            selectStart: null,
+            selectEnd: null,
+            selectedCells: new Set(),
+        };
+
+        // ==================== DOM ====================
+        const gridCanvas = document.getElementById('gridCanvas');
+        const canvasWrapper = document.getElementById('canvasWrapper');
+        const canvasContainer = document.getElementById('canvasContainer');
+        const selectionBox = document.getElementById('selectionBox');
+        const templateList = document.getElementById('templateList');
+        const regionList = document.getElementById('regionList');
+        const codeModal = document.getElementById('codeModal');
+        const codeOutput = document.getElementById('codeOutput');
+        
+        // ==================== 初始化 ====================
+        function init() {
+            loadFromStorage();
+            renderRegionTypes();
+            renderTemplates();
+            renderGrid();
+            bindEvents();
+            updateInfo();
+        }
+        
+        // ==================== 渲染区域类型列表 ====================
+        function renderRegionTypes() {
+            regionList.innerHTML = REGION_TYPES.map(r => `
+                <button class="region-btn ${state.currentRegion === r.id ? 'active' : ''}" data-region="${r.id}">
+                    <div class="color-dot" style="background: ${r.color}; ${r.border ? 'border: 1px solid #E2E8F0;' : ''}"></div>
+                    <div>
+                        <div class="font-medium text-sm">${r.name}</div>
+                        <div class="text-xs text-gray-500">${r.desc}</div>
+                    </div>
+                </button>
+            `).join('');
+        }
+        
+        // ==================== 渲染模板列表 ====================
+        function renderTemplates(category = 'all') {
+            const filtered = category === 'all' 
+                ? TEMPLATES 
+                : TEMPLATES.filter(t => t.category === category || t.category === 'all');
+            
+            templateList.innerHTML = filtered.map(t => {
+                if (t.custom) {
+                    return `<button class="template-btn" data-custom="true">
+                        <span class="font-medium">${t.name}</span>
+                        <span class="size">手动输入宽高和行列</span>
+                    </button>`;
+                }
+                return `<button class="template-btn" data-template='${JSON.stringify(t)}'>
+                    <span class="font-medium">${t.name}</span>
+                    <span class="size">${t.width}×${t.height} | ${t.rows}行×${t.cols}列</span>
+                </button>`;
+            }).join('');
+        }
+        
+        // ==================== 渲染网格 ====================
+        function renderGrid() {
+            // 计算缩放
+            const containerRect = canvasContainer.getBoundingClientRect();
+            const maxWidth = containerRect.width - 48;
+            const maxHeight = containerRect.height - 48;
+            
+            let scale = Math.min(maxWidth / state.canvasWidth, maxHeight / state.canvasHeight, 1);
+            const displayWidth = state.canvasWidth * scale;
+            const displayHeight = state.canvasHeight * scale;
+            
+            canvasWrapper.style.width = displayWidth + 'px';
+            canvasWrapper.style.height = displayHeight + 'px';
+            
+            // 计算字体大小
+            const cellWidth = displayWidth / state.cols;
+            const cellHeight = displayHeight / state.rows;
+            const fontSize = Math.max(8, Math.min(cellWidth, cellHeight) * 0.25);
+            
+            // 初始化 cells
+            const totalCells = state.rows * state.cols;
+            if (state.cells.length !== totalCells) {
+                const newCells = [];
+                for (let i = 0; i < totalCells; i++) {
+                    newCells.push(state.cells[i] || { regionId: '', text: '' });
+                }
+                state.cells = newCells;
+            }
+            
+            // 生成网格
+            gridCanvas.style.display = 'grid';
+            gridCanvas.style.gridTemplateColumns = `repeat(${state.cols}, 1fr)`;
+            gridCanvas.style.gridTemplateRows = `repeat(${state.rows}, 1fr)`;
+            gridCanvas.style.width = '100%';
+            gridCanvas.style.height = '100%';
+            
+            gridCanvas.innerHTML = '';
+            for (let i = 0; i < totalCells; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.dataset.index = i;
+                
+                const cellData = state.cells[i];
+                const region = REGION_TYPES.find(r => r.id === cellData.regionId);
+                
+                if (region) {
+                    cell.style.backgroundColor = region.color;
+                    if (region.textLight) {
+                        cell.style.color = 'white';
+                    }
+                    // 添加标签
+                    const label = document.createElement('span');
+                    label.className = 'cell-label';
+                    label.textContent = region.name;
+                    cell.appendChild(label);
+                }
+                
+                // 文字输入
+                const textEl = document.createElement('input');
+                textEl.type = 'text';
+                textEl.className = 'cell-text';
+                textEl.value = cellData.text || '';
+                textEl.style.fontSize = fontSize + 'px';
+                if (region && region.textLight) {
+                    textEl.style.color = 'white';
+                }
+                
+                textEl.addEventListener('dblclick', (e) => {
+                    e.stopPropagation();
+                    textEl.classList.add('editing');
+                    textEl.focus();
+                });
+                
+                textEl.addEventListener('blur', () => {
+                    textEl.classList.remove('editing');
+                    state.cells[i].text = textEl.value;
+                    saveToStorage();
+                });
+                
+                textEl.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter') {
+                        textEl.blur();
+                    }
+                });
+                
+                cell.appendChild(textEl);
+                gridCanvas.appendChild(cell);
+            }
+            
+            updateInfo();
+        }
+        
+        // ==================== 更新信息显示 ====================
+        function updateInfo() {
+            document.getElementById('infoCanvas').textContent = `${state.canvasWidth} × ${state.canvasHeight}`;
+            document.getElementById('infoGrid').textContent = `${state.rows} × ${state.cols}`;
+            const region = REGION_TYPES.find(r => r.id === state.currentRegion);
+            document.getElementById('infoRegion').textContent = region ? region.name : '橡皮擦';
+            
+            // 更新输入框
+            document.getElementById('canvasWidth').value = state.canvasWidth;
+            document.getElementById('canvasHeight').value = state.canvasHeight;
+            document.getElementById('rowCount').value = state.rows;
+            document.getElementById('colCount').value = state.cols;
+        }
+
+        // ==================== 绑定事件 ====================
+        function bindEvents() {
+            // 应用网格设置
+            document.getElementById('applyGridBtn').addEventListener('click', () => {
+                state.canvasWidth = parseInt(document.getElementById('canvasWidth').value) || 1920;
+                state.canvasHeight = parseInt(document.getElementById('canvasHeight').value) || 1080;
+                state.rows = parseInt(document.getElementById('rowCount').value) || 10;
+                state.cols = parseInt(document.getElementById('colCount').value) || 12;
+                state.cells = [];
+                renderGrid();
+                saveToStorage();
+            });
+            
+            // 模板选择
+            templateList.addEventListener('click', (e) => {
+                const btn = e.target.closest('.template-btn');
+                if (!btn) return;
+                
+                if (btn.dataset.custom) {
+                    // 自定义模板 - 聚焦到宽度输入框
+                    document.getElementById('canvasWidth').focus();
+                    document.getElementById('canvasWidth').select();
+                    return;
+                }
+                
+                const template = JSON.parse(btn.dataset.template);
+                state.canvasWidth = template.width;
+                state.canvasHeight = template.height;
+                state.rows = template.rows;
+                state.cols = template.cols;
+                state.cells = [];
+                
+                document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                renderGrid();
+                saveToStorage();
+            });
+            
+            // 分类标签
+            document.querySelectorAll('.category-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    renderTemplates(tab.dataset.category);
+                });
+            });
+            
+            // 区域类型选择
+            regionList.addEventListener('click', (e) => {
+                const btn = e.target.closest('.region-btn');
+                if (!btn) return;
+                
+                state.currentRegion = btn.dataset.region;
+                document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById('eraserBtn').classList.remove('active');
+                updateInfo();
+            });
+            
+            // 橡皮擦
+            document.getElementById('eraserBtn').addEventListener('click', () => {
+                state.currentRegion = 'eraser';
+                document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
+                document.getElementById('eraserBtn').classList.add('active');
+                updateInfo();
+            });
+            
+            // 选区模式
+            document.getElementById('selectModeBtn').addEventListener('click', () => {
+                state.selectMode = 'single';
+                document.getElementById('selectModeBtn').classList.add('active');
+                document.getElementById('rectModeBtn').classList.remove('active');
+            });
+            
+            document.getElementById('rectModeBtn').addEventListener('click', () => {
+                state.selectMode = 'rect';
+                document.getElementById('rectModeBtn').classList.add('active');
+                document.getElementById('selectModeBtn').classList.remove('active');
+            });
+            
+            // 网格点击/拖拽
+            gridCanvas.addEventListener('mousedown', handleMouseDown);
+            gridCanvas.addEventListener('mousemove', handleMouseMove);
+            gridCanvas.addEventListener('mouseup', handleMouseUp);
+            gridCanvas.addEventListener('mouseleave', handleMouseUp);
+            
+            // 清空
+            document.getElementById('clearBtn').addEventListener('click', () => {
+                if (confirm('确定要清空画布吗？所有区域将被清除。')) {
+                    state.cells = state.cells.map(() => ({ regionId: '', text: '' }));
+                    renderGrid();
+                    saveToStorage();
+                }
+            });
+            
+            // 导出图片
+            document.getElementById('exportImageBtn').addEventListener('click', exportImage);
+            
+            // 导出代码
+            document.getElementById('exportCodeBtn').addEventListener('click', exportCode);
+            
+            // 保存
+            document.getElementById('saveBtn').addEventListener('click', () => {
+                saveToStorage();
+                alert('已保存！');
+            });
+            
+            // 弹窗
+            document.getElementById('closeModalBtn').addEventListener('click', () => {
+                codeModal.classList.add('hidden');
+                codeModal.classList.remove('flex');
+            });
+            
+            document.getElementById('copyCodeBtn').addEventListener('click', () => {
+                navigator.clipboard.writeText(codeOutput.textContent).then(() => {
+                    alert('已复制到剪贴板！');
+                });
+            });
+            
+            // 窗口大小变化
+            window.addEventListener('resize', () => renderGrid());
+        }
+        
+        // ==================== 鼠标事件处理 ====================
+        function handleMouseDown(e) {
+            const cell = e.target.closest('.grid-cell');
+            if (!cell || e.target.classList.contains('cell-text')) return;
+            
+            const index = parseInt(cell.dataset.index);
+            
+            if (state.selectMode === 'single') {
+                // 单格模式：直接填充
+                fillCell(index);
+            } else {
+                // 框选模式：开始选区
+                state.isSelecting = true;
+                state.selectStart = index;
+                state.selectEnd = index;
+                updateSelectionHighlight();
+            }
+        }
+        
+        function handleMouseMove(e) {
+            if (!state.isSelecting || state.selectMode !== 'rect') return;
+            
+            const cell = e.target.closest('.grid-cell');
+            if (!cell) return;
+            
+            state.selectEnd = parseInt(cell.dataset.index);
+            updateSelectionHighlight();
+        }
+        
+        function handleMouseUp(e) {
+            if (!state.isSelecting) return;
+            
+            if (state.selectMode === 'rect' && state.selectStart !== null) {
+                // 填充选中区域
+                const cells = getSelectedCells();
+                cells.forEach(i => fillCell(i, false));
+                saveToStorage();
+            }
+            
+            state.isSelecting = false;
+            state.selectStart = null;
+            state.selectEnd = null;
+            clearSelectionHighlight();
+        }
+        
+        function getSelectedCells() {
+            if (state.selectStart === null || state.selectEnd === null) return [];
+            
+            const startRow = Math.floor(state.selectStart / state.cols);
+            const startCol = state.selectStart % state.cols;
+            const endRow = Math.floor(state.selectEnd / state.cols);
+            const endCol = state.selectEnd % state.cols;
+            
+            const minRow = Math.min(startRow, endRow);
+            const maxRow = Math.max(startRow, endRow);
+            const minCol = Math.min(startCol, endCol);
+            const maxCol = Math.max(startCol, endCol);
+            
+            const cells = [];
+            for (let r = minRow; r <= maxRow; r++) {
+                for (let c = minCol; c <= maxCol; c++) {
+                    cells.push(r * state.cols + c);
+                }
+            }
+            return cells;
+        }
+        
+        function updateSelectionHighlight() {
+            const cells = getSelectedCells();
+            document.querySelectorAll('.grid-cell').forEach((cell, i) => {
+                cell.classList.toggle('selecting', cells.includes(i));
+            });
+        }
+        
+        function clearSelectionHighlight() {
+            document.querySelectorAll('.grid-cell').forEach(cell => {
+                cell.classList.remove('selecting');
+            });
+        }
+        
+        // ==================== 填充单元格 ====================
+        function fillCell(index, save = true) {
+            if (state.currentRegion === 'eraser') {
+                state.cells[index] = { regionId: '', text: '' };
+            } else {
+                state.cells[index].regionId = state.currentRegion;
+            }
+            
+            // 更新显示
+            const cell = gridCanvas.children[index];
+            const region = REGION_TYPES.find(r => r.id === state.cells[index].regionId);
+            
+            // 移除旧标签
+            const oldLabel = cell.querySelector('.cell-label');
+            if (oldLabel) oldLabel.remove();
+            
+            if (region) {
+                cell.style.backgroundColor = region.color;
+                cell.style.color = region.textLight ? 'white' : '';
+                const textEl = cell.querySelector('.cell-text');
+                if (textEl) textEl.style.color = region.textLight ? 'white' : '';
+                
+                const label = document.createElement('span');
+                label.className = 'cell-label';
+                label.textContent = region.name;
+                cell.insertBefore(label, cell.firstChild);
+            } else {
+                cell.style.backgroundColor = '';
+                cell.style.color = '';
+                const textEl = cell.querySelector('.cell-text');
+                if (textEl) textEl.style.color = '';
+            }
+            
+            if (save) saveToStorage();
+        }
+
+        // ==================== 导出图片 ====================
+        function exportImage() {
+            // 临时隐藏标签和边框
+            const labels = gridCanvas.querySelectorAll('.cell-label');
+            const cells = gridCanvas.querySelectorAll('.grid-cell');
+            
+            labels.forEach(l => l.style.display = 'none');
+            cells.forEach(c => c.style.border = 'none');
+            
+            html2canvas(canvasWrapper, {
+                backgroundColor: '#FFFFFF',
+                scale: 2
+            }).then(canvas => {
+                // 恢复
+                labels.forEach(l => l.style.display = '');
+                cells.forEach(c => c.style.border = '1px solid #E2E8F0');
+                
+                const link = document.createElement('a');
+                link.download = `布局_${state.canvasWidth}x${state.canvasHeight}_${Date.now()}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+        
+        // ==================== 导出代码结构 ====================
+        function exportCode() {
+            const regions = analyzeRegions();
+            
+            let code = `/* ========================================\n`;
+            code += `   网格布局结构 - 可直接发给 AI 生成页面\n`;
+            code += `   ======================================== */\n\n`;
+            code += `画布尺寸: ${state.canvasWidth} × ${state.canvasHeight} 像素\n`;
+            code += `网格设置: ${state.rows} 行 × ${state.cols} 列\n\n`;
+            code += `========================================\n`;
+            code += `布局描述（复制发给 AI）:\n`;
+            code += `========================================\n\n`;
+            code += `请创建一个 ${state.canvasWidth}×${state.canvasHeight} 像素的页面，\n`;
+            code += `使用 ${state.rows}×${state.cols} 网格布局，包含以下区域：\n\n`;
+            
+            if (regions.length === 0) {
+                code += `（画布为空，请先用区域类型填充格子）\n`;
+            } else {
+                regions.forEach((region, index) => {
+                    const regionType = REGION_TYPES.find(r => r.id === region.regionId);
+                    const name = regionType ? regionType.name : '未知区域';
+                    const tag = regionType ? regionType.tag : 'div';
+                    
+                    code += `【${name}】<${tag}>\n`;
+                    code += `  位置: 第 ${region.rowStart + 1}-${region.rowEnd + 1} 行，第 ${region.colStart + 1}-${region.colEnd + 1} 列\n`;
+                    if (region.texts.length > 0) {
+                        code += `  内容: ${region.texts.join('、')}\n`;
+                    }
+                    code += `\n`;
+                });
+            }
+            
+            code += `========================================\n`;
+            code += `CSS Grid 参考代码:\n`;
+            code += `========================================\n\n`;
+            code += `.container {\n`;
+            code += `  display: grid;\n`;
+            code += `  grid-template-columns: repeat(${state.cols}, 1fr);\n`;
+            code += `  grid-template-rows: repeat(${state.rows}, 1fr);\n`;
+            code += `  width: ${state.canvasWidth}px;\n`;
+            code += `  height: ${state.canvasHeight}px;\n`;
+            code += `  gap: 0;\n`;
+            code += `}\n\n`;
+            
+            regions.forEach((region, index) => {
+                const regionType = REGION_TYPES.find(r => r.id === region.regionId);
+                const tag = regionType ? regionType.tag : 'region';
+                code += `.${tag} {\n`;
+                code += `  grid-row: ${region.rowStart + 1} / ${region.rowEnd + 2};\n`;
+                code += `  grid-column: ${region.colStart + 1} / ${region.colEnd + 2};\n`;
+                code += `}\n\n`;
+            });
+            
+            codeOutput.textContent = code;
+            codeModal.classList.remove('hidden');
+            codeModal.classList.add('flex');
+        }
+        
+        // ==================== 分析区域 ====================
+        function analyzeRegions() {
+            const regions = [];
+            const visited = new Set();
+            
+            for (let i = 0; i < state.cells.length; i++) {
+                if (visited.has(i) || !state.cells[i].regionId) continue;
+                
+                const regionId = state.cells[i].regionId;
+                const startRow = Math.floor(i / state.cols);
+                const startCol = i % state.cols;
+                
+                // 找出连续的矩形区域
+                let endCol = startCol;
+                let endRow = startRow;
+                
+                // 向右扩展
+                while (endCol + 1 < state.cols) {
+                    const nextIndex = startRow * state.cols + endCol + 1;
+                    if (state.cells[nextIndex].regionId === regionId && !visited.has(nextIndex)) {
+                        endCol++;
+                    } else {
+                        break;
+                    }
+                }
+                
+                // 向下扩展
+                let canExpand = true;
+                while (canExpand && endRow + 1 < state.rows) {
+                    for (let c = startCol; c <= endCol; c++) {
+                        const nextIndex = (endRow + 1) * state.cols + c;
+                        if (state.cells[nextIndex].regionId !== regionId || visited.has(nextIndex)) {
+                            canExpand = false;
+                            break;
+                        }
+                    }
+                    if (canExpand) endRow++;
+                }
+                
+                // 标记已访问
+                const texts = [];
+                for (let r = startRow; r <= endRow; r++) {
+                    for (let c = startCol; c <= endCol; c++) {
+                        const idx = r * state.cols + c;
+                        visited.add(idx);
+                        if (state.cells[idx].text) {
+                            texts.push(state.cells[idx].text);
+                        }
+                    }
+                }
+                
+                regions.push({
+                    regionId,
+                    rowStart: startRow,
+                    rowEnd: endRow,
+                    colStart: startCol,
+                    colEnd: endCol,
+                    texts
+                });
+            }
+            
+            return regions;
+        }
+        
+        // ==================== 持久化 ====================
+        function saveToStorage() {
+            const data = {
+                canvasWidth: state.canvasWidth,
+                canvasHeight: state.canvasHeight,
+                rows: state.rows,
+                cols: state.cols,
+                cells: state.cells,
+                currentRegion: state.currentRegion
+            };
+            localStorage.setItem('gridDesignerV2', JSON.stringify(data));
+        }
+        
+        function loadFromStorage() {
+            const saved = localStorage.getItem('gridDesignerV2');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    state.canvasWidth = data.canvasWidth || 1920;
+                    state.canvasHeight = data.canvasHeight || 1080;
+                    state.rows = data.rows || 10;
+                    state.cols = data.cols || 12;
+                    state.cells = data.cells || [];
+                    state.currentRegion = data.currentRegion || 'nav';
+                } catch (e) {
+                    console.error('加载失败', e);
+                }
+            }
+        }
+        
+        // 启动
+        init();
+    </script>
+</body>
+</html>
