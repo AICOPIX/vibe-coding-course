@@ -1,451 +1,349 @@
-/* Vibe Coding 课程网页样式 */
-/* 使用 Claymorphism 风格 + 教育类配色 */
-
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap');
 
 :root {
-  /* 主色调 - 教育/学习风格 */
-  --primary: #6366f1;        /* 靛蓝色 */
-  --primary-light: #818cf8;
-  --primary-dark: #4f46e5;
-  
-  /* 辅助色 */
-  --secondary: #10b981;      /* 绿色 - 进度/成功 */
-  --accent: #f59e0b;         /* 橙色 - 强调 */
-  
-  /* Claymorphism 柔和色 */
-  --soft-peach: #FDBCB4;
-  --baby-blue: #ADD8E6;
-  --mint: #98FF98;
-  --lilac: #E6E6FA;
-  
-  /* 浅色模式 */
-  --bg-light: #f8fafc;
-  --card-light: #ffffff;
-  --text-light: #0f172a;
-  --text-muted-light: #475569;
-  --border-light: #e2e8f0;
-  
-  /* 深色模式 */
-  --bg-dark: #0f172a;
-  --card-dark: #1e293b;
-  --text-dark: #f1f5f9;
-  --text-muted-dark: #94a3b8;
-  --border-dark: #334155;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Nunito', sans-serif;
-  line-height: 1.6;
-  background-color: var(--bg-light);
-  color: var(--text-light);
-  transition: background-color 0.3s, color 0.3s;
+  --bg: #f4efe6;
+  --surface: rgba(255, 250, 243, 0.92);
+  --surface-strong: #fff8ef;
+  --text: #1f2937;
+  --muted: #5b6470;
+  --line: rgba(31, 41, 55, 0.12);
+  --primary: #0f766e;
+  --primary-strong: #115e59;
+  --secondary: #b45309;
+  --shadow: 0 18px 50px rgba(31, 41, 55, 0.12);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 14px;
 }
 
 body.dark {
-  background-color: var(--bg-dark);
-  color: var(--text-dark);
+  --bg: #111827;
+  --surface: rgba(17, 24, 39, 0.9);
+  --surface-strong: #182233;
+  --text: #f3f4f6;
+  --muted: #c3ced9;
+  --line: rgba(243, 244, 246, 0.12);
+  --primary: #34d399;
+  --primary-strong: #10b981;
+  --secondary: #f59e0b;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Fredoka', sans-serif;
-  font-weight: 600;
-}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
-/* 容器 */
-.container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-/* 导航栏 - 浮动风格 */
-.navbar {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  right: 1rem;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  padding: 1rem 1.5rem;
-  box-shadow: 
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.5);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border: 2px solid var(--border-light);
-}
-
-body.dark .navbar {
-  background: rgba(30, 41, 59, 0.9);
-  border-color: var(--border-dark);
-}
-
-.navbar-brand {
-  font-family: 'Fredoka', sans-serif;
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--primary);
-  text-decoration: none;
-}
-
-.navbar-nav {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
-.nav-link {
-  color: var(--text-muted-light);
-  text-decoration: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  transition: all 0.2s;
-  cursor: pointer;
-}
-
-body.dark .nav-link {
-  color: var(--text-muted-dark);
-}
-
-.nav-link:hover {
-  background: var(--primary-light);
-  color: white;
-}
-
-/* 主题切换按钮 */
-.theme-toggle {
-  background: none;
-  border: 2px solid var(--border-light);
-  border-radius: 0.5rem;
-  padding: 0.5rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-}
-
-body.dark .theme-toggle {
-  border-color: var(--border-dark);
-}
-
-.theme-toggle:hover {
-  background: var(--primary-light);
-  border-color: var(--primary-light);
-}
-
-.theme-toggle svg {
-  width: 1.25rem;
-  height: 1.25rem;
-  color: var(--text-light);
-}
-
-body.dark .theme-toggle svg {
-  color: var(--text-dark);
-}
-
-/* 主内容区 */
-.main-content {
-  padding-top: 6rem;
-  padding-bottom: 4rem;
+body {
+  margin: 0;
   min-height: 100vh;
+  font-family: 'Noto Sans SC', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.15), transparent 32%),
+    radial-gradient(circle at top right, rgba(180, 83, 9, 0.14), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.25), transparent 40%),
+    var(--bg);
 }
 
-/* Claymorphism 卡片 */
-.card {
-  background: var(--card-light);
-  border-radius: 1.5rem;
-  padding: 2rem;
-  margin-bottom: 1.5rem;
-  border: 3px solid var(--border-light);
-  box-shadow: 
-    8px 8px 0 var(--border-light),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8);
-  transition: all 0.2s ease-out;
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 36px 36px;
+  opacity: 0.25;
 }
 
-body.dark .card {
-  background: var(--card-dark);
-  border-color: var(--border-dark);
-  box-shadow: 
-    8px 8px 0 var(--border-dark),
-    inset 0 2px 0 rgba(255, 255, 255, 0.1);
+body.dark::before { opacity: 0.08; }
+
+code {
+  font-family: Consolas, monospace;
+  background: rgba(15, 118, 110, 0.12);
+  padding: 0.15rem 0.4rem;
+  border-radius: 999px;
 }
 
-.card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 
-    10px 10px 0 var(--border-light),
-    inset 0 2px 0 rgba(255, 255, 255, 0.8);
+.site-shell {
+  position: relative;
+  z-index: 1;
+  width: min(1160px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 24px 0 56px;
 }
 
-/* 标题样式 */
-.page-title {
-  font-size: 2.5rem;
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-}
-
-.page-subtitle {
-  color: var(--text-muted-light);
-  font-size: 1.1rem;
-  margin-bottom: 2rem;
-}
-
-body.dark .page-subtitle {
-  color: var(--text-muted-dark);
-}
-
-.section-title {
-  font-size: 1.5rem;
-  color: var(--primary);
-  margin-bottom: 1rem;
+.site-header {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-}
-
-/* 表格 */
-.table-wrapper {
-  overflow-x: auto;
-  margin: 1rem 0;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 0.75rem;
-  overflow: hidden;
-}
-
-th, td {
-  padding: 0.75rem 1rem;
-  text-align: left;
-  border-bottom: 1px solid var(--border-light);
-}
-
-body.dark th,
-body.dark td {
-  border-color: var(--border-dark);
-}
-
-th {
-  background: var(--primary);
-  color: white;
-  font-weight: 600;
-}
-
-tr:hover {
-  background: rgba(99, 102, 241, 0.05);
-}
-
-/* 代码块 */
-.code-block {
-  background: #1e293b;
-  color: #e2e8f0;
-  padding: 1rem 1.5rem;
-  border-radius: 0.75rem;
-  font-family: 'Fira Code', monospace;
-  font-size: 0.9rem;
-  overflow-x: auto;
-  margin: 1rem 0;
-  border: 2px solid #334155;
-}
-
-/* 流程图 */
-.flow-chart {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1rem;
-  background: linear-gradient(135deg, var(--lilac) 0%, var(--baby-blue) 100%);
-  border-radius: 1rem;
-  margin: 1rem 0;
-}
-
-body.dark .flow-chart {
-  background: linear-gradient(135deg, rgba(230, 230, 250, 0.1) 0%, rgba(173, 216, 230, 0.1) 100%);
-}
-
-.flow-step {
-  background: white;
-  padding: 0.75rem 1rem;
-  border-radius: 0.5rem;
-  text-align: center;
-  font-weight: 500;
-  border: 2px solid var(--primary-light);
-}
-
-body.dark .flow-step {
-  background: var(--card-dark);
-}
-
-.flow-arrow {
-  text-align: center;
-  color: var(--primary);
-  font-size: 1.25rem;
-}
-
-/* 导航按钮 */
-.nav-buttons {
-  display: flex;
   justify-content: space-between;
-  gap: 1rem;
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 2px solid var(--border-light);
+  gap: 16px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
 }
 
-body.dark .nav-buttons {
-  border-color: var(--border-dark);
+.site-header.compact { margin-bottom: 20px; }
+
+.brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: 0.02em;
 }
 
-.nav-btn {
+.header-actions {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.5rem;
-  background: var(--primary);
-  color: white;
+  gap: 14px;
+}
+
+.text-link {
+  color: var(--muted);
   text-decoration: none;
-  border-radius: 0.75rem;
-  font-weight: 600;
-  transition: all 0.2s;
-  cursor: pointer;
-  border: 3px solid var(--primary-dark);
-  box-shadow: 4px 4px 0 var(--primary-dark);
 }
 
-.nav-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 6px 6px 0 var(--primary-dark);
-}
+.text-link:hover { color: var(--primary); }
 
-.nav-btn:active {
-  transform: translate(2px, 2px);
-  box-shadow: 2px 2px 0 var(--primary-dark);
-}
-
-.nav-btn.disabled {
-  background: var(--text-muted-light);
-  border-color: var(--text-muted-light);
-  box-shadow: 4px 4px 0 #64748b;
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-/* 进度标签 */
-.status-badge {
+.theme-toggle {
+  width: 46px;
+  height: 46px;
   display: inline-flex;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.status-badge.completed {
-  background: #dcfce7;
-  color: #166534;
-}
-
-.status-badge.in-progress {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-body.dark .status-badge.completed {
-  background: rgba(34, 197, 94, 0.2);
-  color: #86efac;
-}
-
-body.dark .status-badge.in-progress {
-  background: rgba(245, 158, 11, 0.2);
-  color: #fcd34d;
-}
-
-/* 列表样式 */
-ul, ol {
-  padding-left: 1.5rem;
-  margin: 0.5rem 0;
-}
-
-li {
-  margin: 0.5rem 0;
-}
-
-/* 引用块 */
-blockquote {
-  border-left: 4px solid var(--primary);
-  padding-left: 1rem;
-  margin: 1rem 0;
-  color: var(--text-muted-light);
-  font-style: italic;
-}
-
-body.dark blockquote {
-  color: var(--text-muted-dark);
-}
-
-/* 响应式 */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    gap: 1rem;
-    top: 0.5rem;
-    left: 0.5rem;
-    right: 0.5rem;
-  }
-  
-  .page-title {
-    font-size: 1.75rem;
-  }
-  
-  .card {
-    padding: 1.5rem;
-  }
-  
-  .nav-buttons {
-    flex-direction: column;
-  }
-  
-  .nav-btn {
-    justify-content: center;
-  }
-}
-
-
-/* Mermaid 流程图样式 */
-.mermaid-wrapper {
-  background: linear-gradient(135deg, var(--lilac) 0%, var(--baby-blue) 100%);
-  border-radius: 1rem;
-  padding: 1.5rem;
-  margin: 1rem 0;
-  overflow-x: auto;
-}
-
-body.dark .mermaid-wrapper {
-  background: linear-gradient(135deg, rgba(230, 230, 250, 0.1) 0%, rgba(173, 216, 230, 0.1) 100%);
-}
-
-.mermaid {
-  display: flex;
   justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-strong);
+  cursor: pointer;
 }
 
-.mermaid svg {
-  max-width: 100%;
-  height: auto;
+.theme-toggle span {
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: block;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+}
+
+.wide,
+.hero-card,
+.content-card,
+.stage-card,
+.lesson-page > * {
+  grid-column: span 12;
+}
+
+.hero-card,
+.content-card,
+.stage-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow);
+  padding: 26px;
+  backdrop-filter: blur(14px);
+}
+
+.hero-card h1,
+.stage-card h2,
+.content-card h2 {
+  margin: 0;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.hero-card h1 {
+  font-size: clamp(2.1rem, 4vw, 3.7rem);
+  line-height: 1.04;
+  max-width: 10ch;
+}
+
+.hero-copy {
+  max-width: 68ch;
+  color: var(--muted);
+  margin: 14px 0 0;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: var(--secondary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 26px;
+}
+
+.stat-box {
+  min-width: 140px;
+  padding: 16px 18px;
+  background: var(--surface-strong);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+}
+
+.stat-box strong {
+  display: block;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.9rem;
+}
+
+.meta-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.42rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(15, 118, 110, 0.14);
+  color: var(--primary-strong);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.pill.subtle {
+  background: rgba(180, 83, 9, 0.12);
+  color: var(--secondary);
+}
+
+.intro-card {
+  background: linear-gradient(135deg, rgba(15, 118, 110, 0.1), rgba(180, 83, 9, 0.08));
+}
+
+.stage-card {
+  display: grid;
+  grid-template-columns: 1.1fr 1.9fr;
+  gap: 24px;
+}
+
+.stage-head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lesson-list,
+.content-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--muted);
+}
+
+.lesson-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 22px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.lesson-list li { margin: 0; }
+
+.lesson-link {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  width: 100%;
+  text-decoration: none;
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.28);
+}
+
+body.dark .lesson-link { background: rgba(24, 34, 51, 0.65); }
+
+.lesson-link:hover {
+  border-color: rgba(15, 118, 110, 0.45);
+  color: var(--text);
+}
+
+.lesson-id {
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--primary-strong);
+  min-width: 40px;
+}
+
+.lesson-title { color: var(--text); }
+
+.lesson-page {
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.accent-card {
+  background: linear-gradient(135deg, rgba(180, 83, 9, 0.14), rgba(15, 118, 110, 0.08));
+}
+
+.lesson-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.button {
+  flex: 1;
+  text-align: center;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 700;
+  border: 1px solid transparent;
+}
+
+.button.secondary {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line);
+}
+
+.button.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .stage-card { grid-template-columns: 1fr; }
+  .lesson-list { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .site-shell {
+    width: min(100% - 20px, 1160px);
+    padding-top: 12px;
+  }
+
+  .site-header,
+  .header-actions,
+  .lesson-nav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero-card,
+  .content-card,
+  .stage-card {
+    padding: 20px;
+  }
 }

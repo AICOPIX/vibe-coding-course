@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.6 后端、数据库与持久化总览 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第4阶段 · Web 与技术栈基础</p>
+        <h1>4.6 后端、数据库与持久化总览</h1>
+        <p class="hero-copy">这一课把后端、数据库、API、持久化统一放在“数据流”里理解。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>从产品视角理解数据如何被处理和保存。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>后端处理业务逻辑和权限，数据库负责长期保存数据。</li>
+          <li>持久化的重点是让数据在刷新、关闭和重启后仍然存在。</li>
+          <li>不是所有项目都要上服务器，但所有项目都要想清楚数据放哪里。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>用“收藏列表”举例，说明本地存储和服务器数据库的区别。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>合并旧 4.12 到 4.18。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="4.5-样式方案与 Tailwind CSS.html" class="button secondary">上一节：4.5 样式方案与 Tailwind CSS</a>
+        <a href="5.1-浏览器开发者工具与报错阅读.html" class="button">下一节：5.1 浏览器开发者工具与报错阅读</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

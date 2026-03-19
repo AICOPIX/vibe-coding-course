@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.2 项目文件、文件夹与常见文件类型 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第2阶段 · 工具、文件与版本管理</p>
+        <h1>2.2 项目文件、文件夹与常见文件类型</h1>
+        <p class="hero-copy">学会看目录比学一堆命令更重要。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>认识课程仓库的结构和常见文件作用。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>先分清源内容目录与最终页面目录。</li>
+          <li>常见文本文件如 md、html、css、json 的用途要能一眼区分。</li>
+          <li>命名稳定比命名花哨更重要，文件名就是后续链接和部署的基础。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>打开当前仓库，分别指出哪个目录是课程原文，哪个目录是最终网页。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>合并旧 2.3 与 2.4。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="2.1-AI 编程工具链总览.html" class="button secondary">上一节：2.1 AI 编程工具链总览</a>
+        <a href="2.3-终端与常用命令.html" class="button">下一节：2.3 终端与常用命令</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

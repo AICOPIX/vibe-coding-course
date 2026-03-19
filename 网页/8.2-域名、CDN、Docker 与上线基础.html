@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8.2 域名、CDN、Docker 与上线基础 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第8阶段 · 部署、扩展与维护</p>
+        <h1>8.2 域名、CDN、Docker 与上线基础</h1>
+        <p class="hero-copy">这节课不要求你掌握运维，而是让你理解这些词在项目上线后分别负责什么。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>把上线常见名词放回真实使用场景。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>域名负责让用户更容易访问你的站点。</li>
+          <li>CDN 负责更快、更稳定地分发静态资源。</li>
+          <li>Docker 更适合需要完整运行环境的应用，而不是所有项目都必须用。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>判断静态课程站上线时，域名、CDN、Docker 哪些是必须项，哪些不是。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>合并旧 9.3、9.4、9.5。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="8.1-GitHub Pages 与常见部署平台.html" class="button secondary">上一节：8.1 GitHub Pages 与常见部署平台</a>
+        <a href="8.3-设计稿转代码、UI 模板与网格化布局.html" class="button">下一节：8.3 设计稿转代码、UI 模板与网格化布局</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

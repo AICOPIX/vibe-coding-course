@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>6.3 实战：作品集网站 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第6阶段 · 网页实战</p>
+        <h1>6.3 实战：作品集网站</h1>
+        <p class="hero-copy">作品集网站不只是堆项目截图，而是帮助别人快速判断你的能力范围和风格。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>将多个项目整理成可浏览、可比较、可联系的作品集。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>项目卡片要包含背景、职责、成果和链接。</li>
+          <li>结构要支持分类浏览，而不是无限下拉堆叠。</li>
+          <li>视觉上要突出代表作和行动入口。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>写出你的作品集网站首页最重要的三个区块。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>基于旧 6.6。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="6.2-实战：个人介绍页.html" class="button secondary">上一节：6.2 实战：个人介绍页</a>
+        <a href="6.4-实战：把课程内容整理成静态课程站.html" class="button">下一节：6.4 实战：把课程内容整理成静态课程站</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

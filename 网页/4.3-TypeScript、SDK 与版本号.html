@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.3 TypeScript、SDK 与版本号 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第4阶段 · Web 与技术栈基础</p>
+        <h1>4.3 TypeScript、SDK 与版本号</h1>
+        <p class="hero-copy">这节课回答三个高频问题：为什么有人用 TypeScript、SDK 到底是什么、版本号为什么会影响项目稳定性。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>认识现代项目里常见的开发术语。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>TypeScript 通过类型信息帮助你更早发现问题。</li>
+          <li>SDK 是某项服务或平台给开发者准备的接入工具包。</li>
+          <li>版本号变化会影响功能兼容性，升级前要看清破坏性改动。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>分别用一句通俗的话解释 TypeScript、SDK 和版本号。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>合并旧 4.4、4.5、4.6。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="4.2-包管理器、环境变量、JSON 与配置文件.html" class="button secondary">上一节：4.2 包管理器、环境变量、JSON 与配置文件</a>
+        <a href="4.4-前端框架选择：React、Vue、Next.js.html" class="button">下一节：4.4 前端框架选择：React、Vue、Next.js</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

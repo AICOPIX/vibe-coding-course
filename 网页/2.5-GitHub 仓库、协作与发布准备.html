@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.5 GitHub 仓库、协作与发布准备 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第2阶段 · 工具、文件与版本管理</p>
+        <h1>2.5 GitHub 仓库、协作与发布准备</h1>
+        <p class="hero-copy">这一课把 GitHub 看成项目的公共存档、协作入口和部署触发点。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>把仓库托管、协作和部署准备连成一条线。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>仓库不是代码抽屉，而是项目事实来源。</li>
+          <li>把页面目录、课程目录和工作流放进仓库，才能让部署变成可重复过程。</li>
+          <li>对个人项目来说，GitHub 也是最自然的发布备份中心。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>说明为什么“发布配置也要放进仓库”比口头说明更可靠。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>合并旧 2.10、2.11、2.12。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="2.4-Git 基础与提交协作.html" class="button secondary">上一节：2.4 Git 基础与提交协作</a>
+        <a href="3.1-提示词基础与进阶.html" class="button">下一节：3.1 提示词基础与进阶</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

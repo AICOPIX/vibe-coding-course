@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8.1 GitHub Pages 与常见部署平台 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第8阶段 · 部署、扩展与维护</p>
+        <h1>8.1 GitHub Pages 与常见部署平台</h1>
+        <p class="hero-copy">部署不是神秘步骤，而是把本地可运行的内容稳定地发布到线上。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>理解静态站点发布的最小路径。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>GitHub Pages 适合静态站点，门槛低且和仓库天然集成。</li>
+          <li>不同部署平台的核心差异在于支持的运行方式和自动化程度。</li>
+          <li>发布前先让目录、入口和资源路径稳定，比选平台更重要。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>解释为什么本项目把 网页 作为唯一发布源目录。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>合并旧 9.1 与 9.2。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="7.3-手机应用基础、技术选择与简单 App.html" class="button secondary">上一节：7.3 手机应用基础、技术选择与简单 App</a>
+        <a href="8.2-域名、CDN、Docker 与上线基础.html" class="button">下一节：8.2 域名、CDN、Docker 与上线基础</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.1 什么是 Vibe Coding - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第1阶段 · 认识 AI 编程与项目全景</p>
+        <h1>1.1 什么是 Vibe Coding</h1>
+        <p class="hero-copy">这节课建立整个项目的起点：你负责提出目标和判断结果，AI 负责生成实现。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>理解 Vibe Coding 的核心定义、角色分工和学习价值。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>Vibe Coding 不是放弃思考，而是把编码执行交给 AI。</li>
+          <li>零基础学习者的关键能力不是背语法，而是说清需求、看懂结果、持续修正。</li>
+          <li>判断标准始终是结果是否解决问题，而不是代码像不像工程师。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>写下一个你最想做的小工具，用一句话描述目标用户、核心功能和理想效果。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>基于旧 1.1 内容重写并保留核心定义。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <span class="button secondary disabled">上一节：无</span>
+        <a href="1.2-AI 编程方式与胶水编程.html" class="button">下一节：1.2 AI 编程方式与胶水编程</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

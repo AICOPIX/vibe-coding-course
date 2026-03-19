@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.2 包管理器、环境变量、JSON 与配置文件 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第4阶段 · Web 与技术栈基础</p>
+        <h1>4.2 包管理器、环境变量、JSON 与配置文件</h1>
+        <p class="hero-copy">这些概念经常一起出现，本质都在解决“项目如何被配置和运行”。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>理解项目运行所需的几类基础配置。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>包管理器管理依赖，JSON 常用于保存结构化配置。</li>
+          <li>环境变量适合存放会因环境变化的参数。</li>
+          <li>配置文件的价值在于让项目规则可重复、可共享。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>说出为什么 API 密钥不应该直接写进页面文件。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>合并旧 4.1、4.2、4.3、4.7。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="4.1-网页的组成与 HTML、CSS、JavaScript 分工.html" class="button secondary">上一节：4.1 网页的组成与 HTML、CSS、JavaScript 分工</a>
+        <a href="4.3-TypeScript、SDK 与版本号.html" class="button">下一节：4.3 TypeScript、SDK 与版本号</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

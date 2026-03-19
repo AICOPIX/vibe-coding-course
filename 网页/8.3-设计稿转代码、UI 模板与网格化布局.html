@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>8.3 设计稿转代码、UI 模板与网格化布局 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第8阶段 · 部署、扩展与维护</p>
+        <h1>8.3 设计稿转代码、UI 模板与网格化布局</h1>
+        <p class="hero-copy">从设计到代码最常见的问题不是不会画，而是描述不精确、结构不稳定。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>把设计意图稳定地传递给 AI 和页面实现。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>设计稿转代码前先抽离布局规律和信息优先级。</li>
+          <li>UI 模板库适合复用成熟结构，但不能替代思考。</li>
+          <li>网格化布局能帮助你更精确地表达位置、比例和层级。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>用 12 栏网格描述一个课程详情页的主内容区和侧边信息区。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>合并旧 10.2、10.4、10.6。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="8.2-域名、CDN、Docker 与上线基础.html" class="button secondary">上一节：8.2 域名、CDN、Docker 与上线基础</a>
+        <a href="8.4-数据库深入、功能扩展与项目维护.html" class="button">下一节：8.4 数据库深入、功能扩展与项目维护</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

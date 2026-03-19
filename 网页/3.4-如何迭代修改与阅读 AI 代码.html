@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3.4 如何迭代修改与阅读 AI 代码 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第3阶段 · AI 协作与需求表达</p>
+        <h1>3.4 如何迭代修改与阅读 AI 代码</h1>
+        <p class="hero-copy">你不需要一次把需求说到完美，但需要学会逐轮修正。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>建立“先看结果，再定位原因，再提修正”的迭代习惯。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>先确认哪里不对，再告诉 AI 哪里需要保持不动。</li>
+          <li>阅读 AI 代码的重点是结构、命名、路径和副作用。</li>
+          <li>每轮修改都要有明确目标，避免同时改十件事。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>写一个修改指令，要求保留现有样式，只修正课程导航顺序。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>合并旧 3.6 与 3.8。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="3.3-如何描述需求与拆分任务.html" class="button secondary">上一节：3.3 如何描述需求与拆分任务</a>
+        <a href="3.5-如何阅读文档、处理常见问题与 UI 沟通.html" class="button">下一节：3.5 如何阅读文档、处理常见问题与 UI 沟通</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

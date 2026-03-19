@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4.5 样式方案与 Tailwind CSS - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第4阶段 · Web 与技术栈基础</p>
+        <h1>4.5 样式方案与 Tailwind CSS</h1>
+        <p class="hero-copy">样式方案的关键不是跟风，而是保持一致、可维护和可快速调整。</p>
+        <div class="meta-row">
+          <span class="pill">已整理</span>
+          <span class="pill subtle">核心课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <p>理解常见样式组织方式，并知道 Tailwind 的价值与边界。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>核心要点</h2>
+        <ul class="content-list">
+          <li>原生 CSS 适合简单站点和结构明确的项目。</li>
+          <li>Tailwind 适合快速搭建统一视觉，但也需要清晰的样式约束。</li>
+          <li>无论使用哪种方案，命名、层次和响应式规则都必须稳定。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>比较“共享 CSS 文件”与“全部写内联样式”的维护差异。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>内容说明</h2>
+        <p>基于旧 4.11。</p>
+        <p>这节课已经完成结构整理，后续可以在此基础上继续补充案例、截图和更完整的练习答案。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="4.4-前端框架选择：React、Vue、Next.js.html" class="button secondary">上一节：4.4 前端框架选择：React、Vue、Next.js</a>
+        <a href="4.6-后端、数据库与持久化总览.html" class="button">下一节：4.6 后端、数据库与持久化总览</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>
