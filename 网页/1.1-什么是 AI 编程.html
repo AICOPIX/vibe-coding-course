@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.1 什么是 AI 编程 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第1阶段 · 先看懂 AI 编程到底在做什么</p>
+        <h1>1.1 什么是 AI 编程</h1>
+        <p class="hero-copy">AI 编程不是把项目交给 AI 自动完成，而是让 AI 负责一部分生成与执行，让你负责目标、判断、取舍和推进。</p>
+        <div class="meta-row">
+          <span class="pill">增强版</span>
+          <span class="pill subtle">概念课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <ul class="content-list">
+          <li>看懂 AI 编程为什么会成为今天很多人进入项目的入口。</li>
+          <li>分清 AI 负责生成与辅助执行，人负责目标、判断和验收。</li>
+          <li>先建立项目工作流视角，而不是把注意力全放在“会不会手写全部代码”。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>为什么会有这个概念</h2>
+        <p>很多非科班学习者真正想做的不是“研究语言本身”，而是做出网站、作品集、工具页或课程站。AI 出现后，项目入口变了：你可以先说清目标，让 AI 给出雏形，再在修改和推进中反过来理解技术。</p>
+        <ul class="content-list">
+          <li>它不是某一个具体工具，而是一种工作方式。</li>
+          <li>它不是按一下按钮自动完成，而是持续协作和迭代。</li>
+          <li>它不是传统编程的反面，而是人与 AI 的分工方式发生了变化。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>它和传统编程是什么关系</h2>
+        <ul class="content-list">
+          <li>传统编程更强调人亲自承担更多底层实现，AI 编程更强调人和 AI 分工协作。</li>
+          <li>AI 编程并不取消技术基础，但它让你可以先从项目目标进入，而不是先等“全部学会”才开始。</li>
+          <li>真正重要的能力，从“手打速度”部分转移到了“描述需求、判断结果、持续推进”。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>一个贯穿式 mini 案例</h2>
+        <p>目标：做一个个人介绍页，希望能介绍你是谁、展示作品方向、风格简洁，并且后面能扩成作品集。</p>
+        <ol class="content-list">
+          <li>先由你说清页面要给谁看、传达什么、想呈现什么感觉。</li>
+          <li>让 AI 给出第一版页面结构和样式。</li>
+          <li>由你判断哪里不符合目标，再继续追问和修改。</li>
+          <li>AI 继续协助补全、修正和整理，直到结果接近可发布状态。</li>
+        </ol>
+        <p>这整条链才是 AI 编程。重点不是“AI 写了一段代码”，而是你和 AI 一起把项目推向了可用结果。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>在当前项目里的位置</h2>
+        <p>这个课程仓库本身就是 AI 编程实践：你有课程内容，要把它整理成网站，要处理目录、页面、样式、发布和后续维护。这里最关键的不是先掌握全部前端细节，而是先能把目标说清楚、让 AI 产出初版、识别问题并持续收口。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>初学者最容易误解什么</h2>
+        <ul class="content-list">
+          <li>误以为 AI 编程等于不用思考。实际上，方向、边界和验收标准都不会自动出现。</li>
+          <li>误以为 AI 输出了代码，项目就算完成。真正完成还涉及修改、测试、发布和维护。</li>
+          <li>误以为零基础不适合开始。更准确的说法是：零基础更需要按项目逻辑学习。</li>
+          <li>误以为会提问就够了。没有后续判断、修改和推进，项目仍然停在半成品。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>写下你最想做的一个小项目，再补 3 句话：它给谁用、最核心的功能是什么、你最希望它最后看起来像什么。然后把“决定功能边界”和“生成页面初稿”分成人负责 / AI 负责两列。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <span class="button secondary disabled">上一节：无</span>
+        <a href="1.2-AI 编程有哪几种做法.html" class="button">下一节：1.2 AI 编程有哪几种做法</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

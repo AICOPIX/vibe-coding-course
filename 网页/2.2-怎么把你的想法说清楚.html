@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.2 怎么把你的想法说清楚 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第2阶段 · 先学会和 AI 说清楚，再学更复杂的技术</p>
+        <h1>2.2 怎么把你的想法说清楚</h1>
+        <p class="hero-copy">说清楚不是把话说得更长，而是把目标、范围、限制和验收说到 AI 能执行、你也能检查的程度。</p>
+        <div class="meta-row">
+          <span class="pill">增强版</span>
+          <span class="pill subtle">概念课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <ul class="content-list">
+          <li>理解为什么“脑子里知道”和“真的说清楚”不是一回事。</li>
+          <li>掌握目标、对象、范围、限制、验收这 5 个核心要素。</li>
+          <li>学会把模糊请求改写成可执行的项目简报。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>为什么会卡住</h2>
+        <p>很多人以为自己已经表达了需求，但真正说出口的，往往只有一句“帮我改一下”。项目里最关键的信息常常还留在脑子里，比如这轮改哪一层、哪些地方不能动、什么结果才算过关。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>一句话结论</h2>
+        <p>把想法说清楚的关键，不在于写得多漂亮，而在于是否把目标、对象、范围、限制和验收标准说完整。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>一个贯穿式例子</h2>
+        <p>如果你只说“帮我重构第 2 阶段”，AI 很容易抓错重点。更稳的说法应该明确：先改 Markdown，最小同步 HTML；删除旧 `3.5`；第 3 阶段旧稿迁到新目录；最终要让课程目录、首页、文件名和导航一致。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>在当前项目里的位置</h2>
+        <p>这个仓库有课程目录、Markdown 正文、HTML 页面和导航链四层同步关系，所以“说清楚”尤其重要。你每次开工前都应该先问自己：我这轮到底改的是正文、文件名、链接，还是全部一起改。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>最常见的误区</h2>
+        <ul class="content-list">
+          <li>误以为说得越多就越清楚。没有结构的大段描述反而会冲淡重点。</li>
+          <li>误以为只要讲目标，不用讲限制。项目返工常常就发生在这里。</li>
+          <li>误以为验收可以最后再想。没有验收标准，后面就只能一直“再改改”。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>把“帮我改一下课程目录”改写成一个完整请求，至少写清目标、对象、范围、限制和验收这 5 项。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="2.1-AI 编程工具长什么样.html" class="button secondary">上一节：2.1 AI 编程工具长什么样</a>
+        <a href="2.3-怎么把一个大任务拆成小任务.html" class="button">下一节：2.3 怎么把一个大任务拆成小任务</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

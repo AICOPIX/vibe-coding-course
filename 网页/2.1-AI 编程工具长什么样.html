@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.1 AI 编程工具长什么样 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第2阶段 · 先学会和 AI 说清楚，再学更复杂的技术</p>
+        <h1>2.1 AI 编程工具长什么样</h1>
+        <p class="hero-copy">AI 编程不是一个聊天框，而是一套协作工作台。你需要先看懂 AI 助手、编辑器、终端、浏览器和 Git/GitHub 各自负责什么。</p>
+        <div class="meta-row">
+          <span class="pill">增强版</span>
+          <span class="pill subtle">工具课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <ul class="content-list">
+          <li>先看懂 AI 编程最常见的 5 类工具角色，而不是只记品牌名。</li>
+          <li>理解不同工具在一个项目里是怎样接力协作的。</li>
+          <li>学会把“这轮该在哪个界面做什么”放回当前课程仓库里判断。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>一句话结论</h2>
+        <p>AI 编程不是在一个工具里完成一切，而是让 AI 助手、编辑器、终端、浏览器和 Git/GitHub 分别承担不同职责，再由你把它们串成一个可验证、可修改、可发布的工作流。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>这套工作台由谁组成</h2>
+        <ul class="content-list">
+          <li>AI 助手：理解仓库、生成初稿、修改文件、解释问题。</li>
+          <li>编辑器：查看文件、比较内容、做人工微调。</li>
+          <li>终端：确认目录、命令状态和仓库事实。</li>
+          <li>浏览器：预览页面、检查导航和查看报错。</li>
+          <li>Git 与 GitHub：保存历史、同步协作和连接发布。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>在当前项目里的位置</h2>
+        <p>如果把这次“重构第 2 阶段”放回当前仓库，你就能直观看到这些工具在接力：AI 帮你分析旧目录和新主线，编辑器帮你核对文件名和标题，终端帮你确认文件数量和链接状态，浏览器帮你检查页面能不能访问，Git/GitHub 帮你保存这次重构历史。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>最常见的误区</h2>
+        <ul class="content-list">
+          <li>误以为 AI 编程等于一个聊天窗口。真正的结果发生在仓库和页面里。</li>
+          <li>误以为装好工具就会自动做完项目。工具能执行，但不会替你验收。</li>
+          <li>误以为 Git 和 GitHub 要等“以后再学”。AI 改动越多，版本历史越重要。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>请用当前课程仓库写出 5 个工具角色的分工说明，并给每一个补一句“不要拿它做什么”。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="1.4-前端、后端、数据库、API、框架，一次看懂.html" class="button secondary">上一节：1.4 前端、后端、数据库、API、框架，一次看懂</a>
+        <a href="2.2-怎么把你的想法说清楚.html" class="button">下一节：2.2 怎么把你的想法说清楚</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

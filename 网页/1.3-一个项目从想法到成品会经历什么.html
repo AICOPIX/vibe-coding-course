@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1.3 一个项目从想法到成品会经历什么 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第1阶段 · 先看懂 AI 编程到底在做什么</p>
+        <h1>1.3 一个项目从想法到成品会经历什么</h1>
+        <p class="hero-copy">一个项目从想法到成品，通常会经历明确目标、拆需求、做初版、反复修改、测试验收、发布上线和后续维护。这条线不是死顺序，而是会不断回头修正的主线。</p>
+        <div class="meta-row">
+          <span class="pill">增强版</span>
+          <span class="pill subtle">概念课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <ul class="content-list">
+          <li>建立从想法到成品的项目全景，不再只盯着“生成第一版”。</li>
+          <li>理解每个阶段为什么存在，以及它们会怎样来回迭代。</li>
+          <li>学会把眼前问题放回流程里判断，而不是被局部细节拖走。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>为什么要先看懂项目流程</h2>
+        <p>很多初学者之所以觉得技术概念越来越乱，不是因为每个词都太难，而是因为没有看到这些词是在同一条项目主线上出现的。没有流程视角，就很容易把“生成第一版页面”误当成“项目已经完成”。</p>
+        <ul class="content-list">
+          <li>目标不清时，最重要的不是写代码，而是先把方向说清楚。</li>
+          <li>初版的价值是暴露问题，不是代表项目结束。</li>
+          <li>测试、发布和维护不算附加项，而是项目能不能成立的一部分。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>项目主线通常会经过哪些阶段</h2>
+        <ol class="content-list">
+          <li>明确目标：先说清项目给谁用、解决什么问题、最小成果是什么。</li>
+          <li>拆需求：把想法拆成页面、功能、内容、数据和发布方式。</li>
+          <li>做初版：让 AI 协助生成结构、视觉草稿、功能雏形和文案。</li>
+          <li>反复修改：持续调整结构、样式、功能和文案。</li>
+          <li>测试验收、发布上线、后续维护：让项目从“本地可看”变成“真的可交付”。</li>
+        </ol>
+      </section>
+
+      <section class="content-card">
+        <h2>它和相邻概念是什么关系</h2>
+        <ul class="content-list">
+          <li>想法不等于目标。想法是“想做什么”，目标是“给谁用、解决什么、这轮最小成果是什么”。</li>
+          <li>需求拆解不等于开始写代码。拆解是在减少返工，让模糊目标变成可执行任务。</li>
+          <li>初版不等于成品。真正交付前还要经过修改、验收、发布和维护。</li>
+          <li>测试验收不等于发布。一个是在判断能不能交付，一个是在真的让别人访问。</li>
+          <li>发布也不等于结束。项目一上线，立刻就进入维护阶段。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>一个贯穿式 mini 案例</h2>
+        <p>还是用当前课程站做例子：目标是把一套 AI 编程课程内容，整理成可访问、可部署、后续还能继续扩展的静态课程站。</p>
+        <ol class="content-list">
+          <li>明确目标：先定义它给谁看、第一版要解决什么、不解决什么。</li>
+          <li>需求拆解：把项目拆成课程目录、Markdown 正文、HTML 页面、样式、导航和发布入口。</li>
+          <li>做初版：先让 AI 帮你生成首页、单页和样式骨架。</li>
+          <li>反复修改：继续调整标题、命名、导航和页面内容。</li>
+          <li>测试验收：检查页面能不能打开、导航对不对、目录和文件名是否一致。</li>
+          <li>发布上线：把 <code>网页/</code> 作为 GitHub Pages 发布源，让别人也能访问。</li>
+          <li>后续维护：继续同步后续阶段内容，清理旧结构，迭代页面体验。</li>
+        </ol>
+      </section>
+
+      <section class="content-card">
+        <h2>它在项目流程中出现在哪一步</h2>
+        <p>这一课讲的不是某一个阶段，而是整条总地图。它的作用是让你后面学到任何技术词时，都能先判断：这个词是出现在目标、拆解、初版、修改、验收、发布还是维护阶段。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>在当前项目里的位置</h2>
+        <p>当前仓库本身就在走这条线：课程目录已经改过，第 1 阶段正文正在增强，网页端标题和导航正在同步，接下来还要继续清理旧结构和补齐后续阶段。这让你能直接看到流程不是抽象概念，而是真实项目里的推进顺序。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>初学者最容易误解什么</h2>
+        <ul class="content-list">
+          <li>误以为想到什么就直接生成。目标和边界没说清楚，后面返工通常会越来越大。</li>
+          <li>误以为初版能跑就算完成。真正耗时间的往往是后面的修改、验收、发布和维护。</li>
+          <li>误以为测试、发布、维护不算项目内容。很多问题恰恰是在这几步才真正暴露出来。</li>
+          <li>误以为流程是死板顺序。真实项目几乎一定会在测试时回去改，在维护时回去补结构。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>本节学完你应该能判断什么</h2>
+        <ul class="content-list">
+          <li>当前项目更像卡在目标、拆解、初版、修改、验收、发布还是维护阶段。</li>
+          <li>现在最该推进的是方向判断，还是执行细节。</li>
+          <li>一个项目卡住时，更可能是前面没讲清楚，还是后面没做完。</li>
+          <li>为什么“生成一版页面”和“做成一个项目”是两件不同的事。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>本课不讲什么</h2>
+        <ul class="content-list">
+          <li>敏捷、Scrum、瀑布等项目管理方法论。</li>
+          <li>测试工具和部署平台的具体操作细节。</li>
+          <li>某种语言或框架的完整技术栈教程。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>选一个你最想做的小项目，按“目标、拆解、初版、修改、验收、发布、维护”这 7 步各写一句话。然后判断：它现在最卡的是哪一步，下一步该推进什么。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="1.2-AI 编程有哪几种做法.html" class="button secondary">上一节：1.2 AI 编程有哪几种做法</a>
+        <a href="1.4-前端、后端、数据库、API、框架，一次看懂.html" class="button">下一节：1.4 前端、后端、数据库、API、框架，一次看懂</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

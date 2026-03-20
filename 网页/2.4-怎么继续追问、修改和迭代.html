@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.4 怎么继续追问、修改和迭代 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第2阶段 · 先学会和 AI 说清楚，再学更复杂的技术</p>
+        <h1>2.4 怎么继续追问、修改和迭代</h1>
+        <p class="hero-copy">第一版不完美不是失败，而是项目推进的正常形态。关键是学会指出偏差、保护已对部分，并把每一轮修改收得足够稳。</p>
+        <div class="meta-row">
+          <span class="pill">增强版</span>
+          <span class="pill subtle">概念课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <ul class="content-list">
+          <li>理解为什么真正的协作常常发生在第二轮、第三轮。</li>
+          <li>掌握“指出偏差、标出不动区、限定这轮目标”的迭代方法。</li>
+          <li>学会判断什么时候该局部修，什么时候该重开任务。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>一句话结论</h2>
+        <p>继续追问和修改时，最稳的做法不是重说全部，而是先指出哪里不对、哪些保持不动、这轮只改什么、改到什么程度算过关。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>一个贯穿式例子</h2>
+        <p>如果 AI 已经写出了新 `2.2` 页面，但你觉得语气太像提示词教程，你不应该只说“再优化一下”，而应该明确：保留标题、章节顺序和导航，这轮只把正文语气改成项目协作课，并把案例统一换成当前课程仓库。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>在当前项目里的位置</h2>
+        <p>课程仓库重构本身就是多轮迭代：先看目录映射，再改正文，再修导航，再补首页入口。真正让它能持续推进的，不是每次都发一个超大命令，而是每一轮只解决一个主要偏差。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>最常见的误区</h2>
+        <ul class="content-list">
+          <li>误以为第一版不对就说明前面都白做了。项目本来就需要多轮推进。</li>
+          <li>误以为应该把全部不满意一次说完。单轮改动越大，风险越高。</li>
+          <li>误以为哪里不满意就整页重写。这样最容易把原来已经对的部分也冲掉。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>写一条局部修改指令，要求保留现有文件名和导航，只调整正文语气与案例，不改页面结构。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="2.3-怎么把一个大任务拆成小任务.html" class="button secondary">上一节：2.3 怎么把一个大任务拆成小任务</a>
+        <a href="2.5-上下文是什么，为什么 AI 有时会“忘”.html" class="button">下一节：2.5 上下文是什么，为什么 AI 有时会“忘”</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>

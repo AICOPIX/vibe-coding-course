@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2.3 怎么把一个大任务拆成小任务 - Vibe Coding Course</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="site-shell">
+    <header class="site-header compact">
+      <a href="index.html" class="brand">Vibe Coding Course</a>
+      <div class="header-actions">
+        <a href="index.html" class="text-link">返回目录</a>
+        <button class="theme-toggle" type="button" aria-label="切换主题" onclick="toggleTheme()">
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <main class="page-grid lesson-page">
+      <section class="hero-card">
+        <p class="eyebrow">第2阶段 · 先学会和 AI 说清楚，再学更复杂的技术</p>
+        <h1>2.3 怎么把一个大任务拆成小任务</h1>
+        <p class="hero-copy">拆任务的关键不是越碎越好，而是让每一轮都只解决一个主要问题，并且有清楚的完成标准。</p>
+        <div class="meta-row">
+          <span class="pill">增强版</span>
+          <span class="pill subtle">概念课</span>
+        </div>
+      </section>
+
+      <section class="content-card">
+        <h2>本节目标</h2>
+        <ul class="content-list">
+          <li>理解为什么大任务最容易“做了很多却难检查”。</li>
+          <li>学会把混合任务拆成可单独验收的小任务。</li>
+          <li>掌握“目标单一、边界清楚、结果可验收”的拆分标准。</li>
+        </ul>
+      </section>
+
+      <section class="content-card">
+        <h2>为什么需要先拆</h2>
+        <p>像“把第 2 阶段完整重构并同步网页”这种请求，里面其实混着目录整理、正文重写、HTML 同步、导航修复和首页更新五类工作。如果一轮全做，最难的不是执行，而是验收。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>一个更稳的拆法</h2>
+        <ol class="content-list">
+          <li>先定新第 2 阶段的课程序列和来源映射。</li>
+          <li>再重写 Markdown 正文。</li>
+          <li>再同步 HTML 文件名、标题和导航。</li>
+          <li>最后统一检查首页入口和链接是否断裂。</li>
+        </ol>
+        <p>每一步都只有一个主要验收面，所以更容易判断哪里真的完成了。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>在当前项目里的位置</h2>
+        <p>这个仓库最适合按“结果层”拆任务，而不是只按文件拆。因为真正要同步的是目录、标题、链接和页面，不只是单个文件本身。</p>
+      </section>
+
+      <section class="content-card">
+        <h2>最常见的误区</h2>
+        <ul class="content-list">
+          <li>误以为拆得越碎越好。过碎会让任务管理本身变成负担。</li>
+          <li>误以为按文件拆就一定合理。文件只是载体，验收面才是重点。</li>
+          <li>误以为一次做完更快。单轮越大，后面的检查和返工通常越慢。</li>
+        </ul>
+      </section>
+
+      <section class="content-card accent-card">
+        <h2>本节练习</h2>
+        <p>把“把第 2 阶段完整重构并同步网页”拆成 4 到 6 个小任务，并为每一个写一条验收标准。</p>
+      </section>
+
+      <nav class="lesson-nav">
+        <a href="2.2-怎么把你的想法说清楚.html" class="button secondary">上一节：2.2 怎么把你的想法说清楚</a>
+        <a href="2.4-怎么继续追问、修改和迭代.html" class="button">下一节：2.4 怎么继续追问、修改和迭代</a>
+      </nav>
+    </main>
+  </div>
+
+  <script>
+    if (localStorage.getItem('theme') === 'dark') {
+      document.body.classList.add('dark');
+    }
+
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    }
+  </script>
+</body>
+</html>
